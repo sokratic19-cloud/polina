@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>КВИЗ — Сникер-шоп | Лимитированные кроссовки</title>
+    <style>
+        /* === Базовые стили === */
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #0d0d0d;
+            color: #f2f2f2;
+            line-height: 1.6;
+        }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 20px; }
+
+        /* === Шапка === */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            border-bottom: 1px solid #222;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: 900;
+            color: #ff5722;
+            letter-spacing: 3px;
+        }
+        nav ul { display: flex; gap: 30px; list-style: none; }
+        nav a {
+            font-size: 15px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+        }
+        nav a:hover { color: #ff5722; }
+
+        /* === Главный экран === */
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 80px 40px;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+        .hero-text { flex: 1; min-width: 300px; }
+        .hero h1 {
+            font-size: 72px;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+        .hero h1 span { color: #ff5722; }
+        .slogan {
+            font-size: 22px;
+            color: #bbb;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        .btn {
+            display: inline-block;
+            background: #ff5722;
+            color: #fff;
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .btn:hover {
+            background: #ff7a4d;
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(255, 87, 34, 0.4);
+        }
+        .hero-img {
+            flex: 1;
+            min-width: 300px;
+            text-align: center;
+        }
+        .hero-img img {
+            max-width: 100%;
+            border-radius: 20px;
+            filter: drop-shadow(0 20px 40px rgba(255, 87, 34, 0.3));
+        }
+
+        /* === Блок "Почему мы" === */
+        .section { padding: 80px 40px; }
+        .section-title {
+            text-align: center;
+            font-size: 42px;
+            text-transform: uppercase;
+            margin-bottom: 50px;
+        }
+        .section-title span { color: #ff5722; }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: #1a1a1a;
+            padding: 40px 30px;
+            border-radius: 20px;
+            border: 1px solid #2a2a2a;
+            transition: all 0.3s;
+        }
+        .card:hover {
+            border-color: #ff5722;
+            transform: translateY(-5px);
+        }
+        .card-icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+        .card h3 {
+            font-size: 20px;
+            margin-bottom: 15px;
+            color: #ff5722;
+            text-transform: uppercase;
+        }
+        .card p { color: #aaa; font-size: 15px; }
+
+        /* === Цены === */
+        .prices {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+        }
+        .price-card {
+            background: linear-gradient(145deg, #1a1a1a, #141414);
+            padding: 40px 30px;
+            border-radius: 20px;
+            text-align: center;
+            border: 1px solid #2a2a2a;
+            transition: all 0.3s;
+        }
+        .price-card:hover {
+            transform: scale(1.03);
+            border-color: #ff5722;
+        }
+        .price-card.featured {
+            border: 2px solid #ff5722;
+            position: relative;
+        }
+        .price-card.featured::before {
+            content: "ХИТП";
+            position: absolute;
+            top: -12px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #ff5722;
+            padding: 4px 15px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .price-card h3 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        .price {
+            font-size: 42px;
+            color: #ff5722;
+            font-weight: bold;
+            margin: 20px 0;
+        }
+        .price-card ul {
+            list-style: none;
+            margin: 20px 0;
+            text-align: left;
+        }
+        .price-card li {
+            padding: 8px 0;
+            color: #bbb;
+            border-bottom: 1px solid #222;
+        }
+
+        /* === Отзывы === */
+        .reviews {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+        .review {
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 20px;
+            border-left: 4px solid #ff5722;
+        }
+        .review p {
+            font-style: italic;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+        .review-author {
+            color: #ff5722;
+            font-weight: bold;
+        }
+
+        /* === Подвал === */
+        footer {
+            background: #080808;
+            padding: 50px 40px 20px;
+            border-top: 1px solid #222;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .footer-content h4 {
+            color: #ff5722;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+        .footer-content p, .footer-content a {
+            color: #aaa;
+            display: block;
+            margin-bottom: 8px;
+            transition: color 0.3s;
+        }
+        .footer-content a:hover { color: #ff5722; }
+        .copyright {
+            text-align: center;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+            color: #555;
+            font-size: 14px;
+        }
+
+        /* === Адаптив === */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 48px; }
+            header { flex-direction: column; gap: 15px; }
+            nav ul { gap: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Шапка сайта -->
+    <header>
+        <div class="logo">КВИЗ</div>
+        <nav>
+            <ul>
+                <li><a href="#why">Почему мы</a></li>
+                <li><a href="#prices">Цены</a></li>
+                <li><a href="#reviews">Отзывы</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Главный экран -->
+    <section class="hero">
+        <div class="hero-text">
+            <h1>ЛИМИТКИ <span>ДЛЯ ТВОИХ НОГ</span></h1>
+            <p class="slogan">«Шагай громче. Кроссы — твой голос.»</p>
+            <button class="btn" onclick="alert('Заявка отправлена! Мы свяжемся с тобой.')">Оставить заявку</button>
+        </div>
+        <div class="hero-img">
+            <!-- Картинка лежит рядом с index.html -->
+            <img src="sneaker.png" alt="Лимитированные кроссовки">
+        </div>
+    </section>
+
+    <!-- Блок "Почему мы" -->
+    <section class="section" id="why">
+        <div class="container">
+            <h2 class="section-title">Почему <span>КВИЗ</span>?</h2>
+            <div class="cards">
+                <!-- Карточка 1 -->
+                <div class="card">
+                    <div class="card-icon">✓</div>
+                    <h3>Чек подлинности</h3>
+                    <p>Каждая пара проходит проверку и получает официальный сертификат. Никаких палей — только оригинал.</p>
+                </div>
+                <!-- Карточка 2 -->
+                <div class="card">
+                    <div class="card-icon">🎁</div>
+                    <h3>Розыгрыши лимиток</h3>
+                    <p>Каждую неделю разыгрываем редкие пары среди подписчиков. Твой шанс забрать хайп бесплатно.</p>
+                </div>
+                <!-- Карточка 3 -->
+                <div class="card">
+                    <div class="card-icon">⇄</div>
+                    <h3>Trade-in кроссовок</h3>
+                    <p>Сдай старые кроссы и получи скидку на новую пару. Апгрейд гардероба без лишних трат.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок "Цены" -->
+    <section class="section" id="prices" style="background:#111;">
+        <div class="container">
+            <h2 class="section-title">Выбери свой <span>уровень</span></h2>
+            <div class="prices">
+                <!-- Тариф 1 -->
+                <div class="price-card">
+                    <h3>Старт</h3>
+                    <div class="price">9 900 ₽</div>
+                    <ul>
+                        <li>Базовые модели</li>
+                        <li>Чек подлинности</li>
+                        <li>Доставка по РФ</li>
+                    </ul>
+                    <button class="btn">Выбрать</button>
+                </div>
+                <!-- Тариф 2 (рекомендуемый) -->
+                <div class="price-card featured">
+                    <h3>Хайп</h3>
+                    <div class="price">19 900 ₽</div>
+                    <ul>
+                        <li>Лимитированные пары</li>
+                        <li>Сертификат + чек</li>
+                        <li>Участие в розыгрышах</li>
+                        <li>Trade-in скидка 20%</li>
+                    </ul>
+                    <button class="btn">Выбрать</button>
+                </div>
+                <!-- Тариф 3 -->
+                <div class="price-card">
+                    <h3>Эксклюзив</h3>
+                    <div class="price">39 900 ₽</div>
+                    <ul>
+                        <li>Редкие коллаборации</li>
+                        <li>Персональный менеджер</li>
+                        <li>Приоритетный доступ</li>
+                        <li>Trade-in скидка 40%</li>
+                    </ul>
+                    <button class="btn">Выбрать</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Блок "Отзывы" -->
+    <section class="section" id="reviews">
+        <div class="container">
+            <h2 class="section-title">Что говорят <span>сникерхеды</span></h2>
+            <div class="reviews">
+                <!-- Отзыв 1 -->
+                <div class="review">
+                    <p>«Заказал Jordan 4 — пришли с сертификатом, всё чисто. Реально оригинал, а не палка с рынка. Теперь только тут.»</p>
+                    <div class="review-author">— Дима, 19 лет, Москва</div>
+                </div>
+                <!-- Отзыв 2 -->
+                <div class="review">
+                    <p>«Выиграл лимитку в розыгрыше — до сих пор не верю. Плюс сдал старые джорданы по трейд-ину, сэкономил кучу. Топ магазин!»</p>
+                    <div class="review-author">— Лера, 22 года, Питер</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Подвал -->
+    <footer>
+        <div class="footer-content">
+            <div>
+                <h4>КВИЗ</h4>
+                <p>Сникер-шоп №1 для тех, кто шагает громче.</p>
+            </div>
+            <div>
+                <h4>Контакты</h4>
+                <p>📞 +7 (999) 123-45-67</p>
+                <p>✉ info@quiz-sneakers.ru</p>
+                <p>📍 Москва, ул. Хайповая, 1</p>
+            </div>
+            <div>
+                <h4>Соцсети</h4>
+                <a href="#">Telegram</a>
+                <a href="#">VK</a>
+                <a href="#">Instagram</a>
+            </div>
+        </div>
+        <div class="copyright">
+            © 2026 КВИЗ. Все права защищены. Шагай громче.
+        </div>
+    </footer>
+
+</body>
+</html>
